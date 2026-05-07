@@ -501,7 +501,7 @@ export default function App() {
                 <span className="absolute right-14 bg-[#030303] border border-white/10 px-3 py-1.5 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Email Me</span>
                 <Mail size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/john-marcel-aleman-71457728a/" target="_blank" rel="noreferrer" className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-blue-500/20 hover:border-blue-500/50 transition-all text-white shadow-lg group relative">
+              <a href="https://www.linkedin.com/in/john-marcel-aleman-47ab08402/" target="_blank" rel="noreferrer" className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-blue-500/20 hover:border-blue-500/50 transition-all text-white shadow-lg group relative">
                 <span className="absolute right-14 bg-[#030303] border border-white/10 px-3 py-1.5 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">LinkedIn</span>
                 <Linkedin size={20} />
               </a>
