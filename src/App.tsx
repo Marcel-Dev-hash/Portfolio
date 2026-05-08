@@ -275,19 +275,13 @@ export default function App() {
                     <div>
                       <span className="text-sm font-mono text-indigo-400 tracking-wider uppercase mb-2 block">Creator & Lead Architect</span>
                       <div className="flex items-center justify-between">
-                      <div className="flex flex-wrap items-center gap-4">
                         <h4 className="text-4xl font-bold text-white">VA Job Finder</h4>
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-mono uppercase tracking-wider">
-                          <Wrench size={12} />
-                          Enhancing Portfolio Link
-                        </div>
                         <div className="flex items-center gap-3">
                           <span className="text-[10px] md:text-xs font-mono text-indigo-300 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0 bg-indigo-500/20 px-3 py-1 rounded-full border border-indigo-500/30 whitespace-nowrap shadow-[0_0_15px_rgba(99,102,241,0.1)]">
                             Click me to direct to VA Job Finder
                           </span>
                           <ExternalLink className="text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={24} />
                         </div>
-                      </div>
                       </div>
                     </div>
 
@@ -311,10 +305,6 @@ export default function App() {
                       <li className="flex items-start gap-3">
                         <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
                         <span>Ensured system stability by implementing advanced security middleware and anti-bot measures.</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="p-1 bg-orange-500/20 rounded-full mt-1"><Wrench size={12} className="text-orange-400" /></div>
-                        <span className="text-orange-300/80 italic text-sm">The "Portfolio Link" feature is currently under maintenance for further enhancement.</span>
                       </li>
                     </ul>
 
