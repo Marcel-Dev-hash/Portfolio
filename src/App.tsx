@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 import {
-  Github, Mail, Phone, MapPin, Code2, Database,
-  Wrench, Terminal, Cpu, GraduationCap, Briefcase, ChevronRight,
-  MessageCircle, X, Instagram, Facebook, Linkedin, ExternalLink
+  Github, Code2, Database,
+  Wrench, Terminal, Cpu, Briefcase, ChevronRight,
+  MessageCircle, ExternalLink, Clock, Award, Zap, Share2, Calendar, Mail, Send,
+  Linkedin, Facebook, Instagram, Phone
 } from 'lucide-react';
 
 const fadeIn = {
@@ -17,16 +18,14 @@ const staggerContainer = {
 };
 
 export default function App() {
-  const [isContactOpen, setIsContactOpen] = useState(false);
-  const [textIndex, setTextIndex] = useState(0);
-  const buildItems = ["Websites.", "Mobile Apps.", "AI Automation Workflows."];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTextIndex((prev) => (prev + 1) % buildItems.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email');
+    const message = formData.get('message');
+    const mailtoUrl = `mailto:johnmarcelaleman.techva@gmail.com?subject=Portfolio Contact Request&body=Sender Email: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+    window.location.href = mailtoUrl;
+  };
 
   return (
     <div className="relative min-h-screen bg-[#030303] text-gray-200 font-sans selection:bg-emerald-500 selection:text-black">
@@ -35,140 +34,246 @@ export default function App() {
         <div className="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-emerald-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
         <div className="absolute top-[20%] right-[-10%] w-[35rem] h-[35rem] bg-cyan-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-[-20%] left-[20%] w-[45rem] h-[45rem] bg-purple-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff08_1px,transparent_1px)] [background-size:24px_24px]"></div>
       </div>
 
       <div className="relative z-10">
         {/* Navigation / Header */}
         <header className="fixed top-0 w-full z-50 bg-[#030303]/50 backdrop-blur-xl border-b border-white/5">
           <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div className="font-mono text-xl font-bold tracking-tighter">
+            <a href="#home" className="font-mono text-xl font-bold tracking-tighter hover:opacity-90 transition-opacity">
               <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Marcel</span>
               <span className="text-white"> Dev</span>
-            </div>
+            </a>
             <nav className="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+              <a href="#home" className="hover:text-emerald-400 transition-colors">Home</a>
               <a href="#about" className="hover:text-emerald-400 transition-colors">About</a>
               <a href="#skills" className="hover:text-emerald-400 transition-colors">Skills</a>
-              <a href="#projects" className="hover:text-emerald-400 transition-colors">Projects</a>
-              <a href="#education" className="hover:text-emerald-400 transition-colors">Education</a>
+              <a href="#ai-projects" className="hover:text-emerald-400 transition-colors">Workflows</a>
+              <a href="#projects" className="hover:text-emerald-400 transition-colors">Web/App Projects</a>
+              <a href="#contact" className="hover:text-emerald-400 transition-colors">Contact</a>
             </nav>
           </div>
         </header>
 
-        <main className="max-w-6xl mx-auto px-6 pt-40 pb-24 space-y-40">
+        <main className="max-w-6xl mx-auto px-6 pt-24 pb-24 space-y-40">
 
           {/* Hero Section */}
           <motion.section
-            className="flex flex-col lg:flex-row items-center justify-between gap-12"
+            id="home"
+            className="min-h-[calc(100vh-160px)] flex flex-col justify-between gap-10"
             initial="initial"
             animate="animate"
             variants={staggerContainer}
           >
-            <div className="space-y-10 flex-1">
-              <motion.div variants={fadeIn} className="space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-4">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="text-xs font-mono text-gray-300 uppercase tracking-wider">Available for work</span>
-                </div>
-                <h2 className="text-3xl md:text-5xl font-bold text-gray-300 tracking-tight">
-                  Hi, I'm
-                </h2>
-                <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter text-white">
-                  <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
-                    Marcel
-                  </span>
-                </h1>
-                <h2 className="text-2xl md:text-4xl font-medium text-gray-400 tracking-tight max-w-3xl flex flex-wrap gap-2 items-center">
-                  <span>I build</span>
-                  <span className="text-emerald-400 inline-flex">
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={textIndex}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        {buildItems[textIndex]}
-                      </motion.span>
-                    </AnimatePresence>
-                  </span>
-                </h2>
-              </motion.div>
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-12 w-full flex-grow py-8 md:py-12">
+              <div className="space-y-6 flex-1">
+                <motion.div variants={fadeIn} className="space-y-4">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span className="text-xs font-mono text-gray-300 uppercase tracking-wider">Available for work</span>
+                  </div>
+                  <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter leading-[1.15] text-white">
+                    <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent block">
+                      AI Automation Developer
+                    </span>
+                    <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent block">
+                      & Web Developer
+                    </span>
+                  </h1>
+                  <p className="text-lg text-gray-400 max-w-2xl leading-relaxed pt-1">
+                    I engineer custom automation workflows and advanced web systems for businesses, eliminating hours of repetitive tasks, connecting business software, and building modern web applications.
+                  </p>
+                </motion.div>
 
-              <motion.div variants={fadeIn} className="flex flex-wrap gap-4 text-sm font-mono text-gray-300">
-                <a href="https://github.com/Marcel-Dev-hash" target="_blank" rel="noreferrer" className="glass-card flex items-center gap-3 px-4 py-2.5 rounded-xl hover:text-emerald-400 cursor-pointer">
-                  <Github size={16} className="text-emerald-400" />
-                  Marcel-Dev-hash
-                </a>
+                <motion.div variants={fadeIn} className="flex flex-wrap gap-4 text-sm font-medium">
+                  <a href="#contact" className="relative inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-[#030303] font-bold tracking-wide shadow-[0_0_20px_rgba(52,211,153,0.3)] hover:shadow-[0_0_25px_rgba(52,211,153,0.5)] transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+                    <Mail size={16} className="text-[#030303]" />
+                    Contact me
+                  </a>
+                </motion.div>
+              </div>
+
+              {/* 3D Floating Cube */}
+              <motion.div
+                variants={fadeIn}
+                className="hidden lg:flex flex-1 justify-center items-center w-full max-w-[320px] aspect-square"
+                style={{ perspective: '1000px' }}
+              >
+                <motion.div
+                  className="w-48 h-48 relative"
+                  animate={{
+                    rotateX: [0, 360],
+                    rotateY: [0, 360],
+                  }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  {/* Inner glowing core */}
+                  <div className="absolute inset-0 m-auto w-24 h-24 bg-emerald-500/40 rounded-full blur-3xl animate-pulse" style={{ transform: 'translateZ(0)' }}></div>
+
+                  {/* Faces */}
+                  <div className="absolute inset-0 border-2 border-emerald-400/30 bg-emerald-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_rgba(52,211,153,0.2)]" style={{ transform: 'translateZ(96px)' }}>
+                    <Code2 size={48} className="text-emerald-400/80" />
+                  </div>
+                  <div className="absolute inset-0 border-2 border-cyan-400/30 bg-cyan-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.2)]" style={{ transform: 'rotateY(180deg) translateZ(96px)' }}>
+                    <Database size={48} className="text-cyan-400/80" />
+                  </div>
+                  <div className="absolute inset-0 border-2 border-purple-400/30 bg-purple-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_rgba(192,132,252,0.2)]" style={{ transform: 'rotateY(90deg) translateZ(96px)' }}>
+                    <Terminal size={48} className="text-purple-400/80" />
+                  </div>
+                  <div className="absolute inset-0 border-2 border-blue-400/30 bg-blue-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_rgba(96,165,250,0.2)]" style={{ transform: 'rotateY(-90deg) translateZ(96px)' }}>
+                    <Cpu size={48} className="text-blue-400/80" />
+                  </div>
+                  <div className="absolute inset-0 border-2 border-pink-400/30 bg-pink-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_rgba(244,114,182,0.2)]" style={{ transform: 'rotateX(90deg) translateZ(96px)' }}>
+                    <Wrench size={48} className="text-pink-400/80" />
+                  </div>
+                  <div className="absolute inset-0 border-2 border-yellow-400/30 bg-yellow-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]" style={{ transform: 'rotateX(-90deg) translateZ(96px)' }}>
+                    <Github size={48} className="text-yellow-400/80" />
+                  </div>
+                </motion.div>
               </motion.div>
             </div>
 
-            {/* 3D Floating Cube */}
+            {/* Stats Section Bar */}
             <motion.div
               variants={fadeIn}
-              className="hidden lg:flex flex-1 justify-center items-center w-full max-w-[400px] aspect-square"
-              style={{ perspective: '1000px' }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full pt-8 border-t border-white/5"
             >
-              <motion.div
-                className="w-64 h-64 relative"
-                animate={{
-                  rotateX: [0, 360],
-                  rotateY: [0, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                {/* Inner glowing core */}
-                <div className="absolute inset-0 m-auto w-32 h-32 bg-emerald-500/40 rounded-full blur-3xl animate-pulse" style={{ transform: 'translateZ(0)' }}></div>
+              {/* Stat 1: Experience */}
+              <div className="glass-card p-5 rounded-2xl flex flex-col items-center md:items-start text-center md:text-left group hover:border-emerald-500/20 transition-all duration-300">
+                <div className="p-2.5 bg-emerald-500/10 rounded-xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                  <Clock size={18} className="text-emerald-400" />
+                </div>
+                <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">1+ Year</span>
+                <span className="text-xs font-semibold text-gray-300 mt-1">Dev Experience</span>
+              </div>
 
-                {/* Faces */}
-                <div className="absolute inset-0 border-2 border-emerald-400/30 bg-emerald-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_30px_rgba(52,211,153,0.2)]" style={{ transform: 'translateZ(128px)' }}>
-                  <Code2 size={64} className="text-emerald-400/80" />
+              {/* Stat 2: Projects Completed */}
+              <div className="glass-card p-5 rounded-2xl flex flex-col items-center md:items-start text-center md:text-left group hover:border-cyan-500/20 transition-all duration-300">
+                <div className="p-2.5 bg-cyan-500/10 rounded-xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                  <Code2 size={18} className="text-cyan-400" />
                 </div>
-                <div className="absolute inset-0 border-2 border-cyan-400/30 bg-cyan-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_30px_rgba(34,211,238,0.2)]" style={{ transform: 'rotateY(180deg) translateZ(128px)' }}>
-                  <Database size={64} className="text-cyan-400/80" />
+                <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">10 Projects</span>
+                <span className="text-xs font-semibold text-gray-300 mt-1">Completed Projects</span>
+              </div>
+
+              {/* Stat 3: Availability */}
+              <div className="glass-card p-5 rounded-2xl flex flex-col items-center md:items-start text-center md:text-left group hover:border-indigo-500/20 transition-all duration-300">
+                <div className="p-2.5 bg-indigo-500/10 rounded-xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                  <Zap size={18} className="text-indigo-400" />
                 </div>
-                <div className="absolute inset-0 border-2 border-purple-400/30 bg-purple-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_30px_rgba(192,132,252,0.2)]" style={{ transform: 'rotateY(90deg) translateZ(128px)' }}>
-                  <Terminal size={64} className="text-purple-400/80" />
-                </div>
-                <div className="absolute inset-0 border-2 border-blue-400/30 bg-blue-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_30px_rgba(96,165,250,0.2)]" style={{ transform: 'rotateY(-90deg) translateZ(128px)' }}>
-                  <Cpu size={64} className="text-blue-400/80" />
-                </div>
-                <div className="absolute inset-0 border-2 border-pink-400/30 bg-pink-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_30px_rgba(244,114,182,0.2)]" style={{ transform: 'rotateX(90deg) translateZ(128px)' }}>
-                  <Wrench size={64} className="text-pink-400/80" />
-                </div>
-                <div className="absolute inset-0 border-2 border-yellow-400/30 bg-yellow-500/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_30px_rgba(234,179,8,0.2)]" style={{ transform: 'rotateX(-90deg) translateZ(128px)' }}>
-                  <Github size={64} className="text-yellow-400/80" />
-                </div>
-              </motion.div>
+                <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">20 Hrs/Wk</span>
+                <span className="text-xs font-semibold text-gray-300 mt-1">Weekly Availability</span>
+              </div>
             </motion.div>
           </motion.section>
 
-          {/* About / Summary */}
+          {/* About / Business Solutions */}
           <motion.section
             id="about"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="relative min-h-[calc(100vh-160px)] flex flex-col justify-center"
           >
-            <div className="absolute -inset-x-6 -inset-y-6 bg-gradient-to-r from-emerald-500/5 to-purple-500/5 blur-2xl rounded-[3rem] -z-10"></div>
-            <div className="glass-card p-10 md:p-14 rounded-[2.5rem]">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 bg-emerald-500/10 rounded-2xl">
-                  <Terminal className="text-emerald-400" size={24} />
+            <div className="absolute -inset-x-6 -inset-y-6 bg-gradient-to-r from-emerald-500/5 via-cyan-500/3 to-purple-500/5 blur-2xl rounded-[3rem] -z-10"></div>
+            
+            <div className="glass-card p-8 md:p-12 rounded-[2.5rem]">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                {/* Left Column: Human Element & Social Proof (5 cols) */}
+                <div className="lg:col-span-5 space-y-6">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Developing from the Philippines
+                  </div>
+                  
+                  <h3 className="text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight">
+                    Let's make your business run itself.
+                  </h3>
+                  
+                  <div className="space-y-4 text-gray-300 text-base md:text-lg leading-relaxed font-normal">
+                    <p>
+                      Hey, I'm <strong>Marcel</strong>. While I'm finishing my Computer Science degree, my real obsession is building robust systems that eliminate manual operations for businesses worldwide.
+                    </p>
+                    <p>
+                      I don't sell generic "AI buzzwords." I build highly optimized, secure, and concrete workflows—taking over your tedious scraping, support, and social tasks so you can focus on building your brand.
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-3xl font-bold text-white tracking-tight">Professional Summary</h3>
+
+                {/* Right Column: Custom Concrete Solutions - 2x2 Grid of Premium Card Boxes (7 cols) */}
+                <div className="lg:col-span-7">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Card 1: Lead Gen & Web Scraping */}
+                    <motion.div 
+                      whileHover={{ y: -5, scale: 1.02 }}
+                      className="bg-[#0c0c0e]/80 border border-white/5 p-6 rounded-3xl relative overflow-hidden group hover:border-cyan-500/20 transition-all duration-300"
+                    >
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full group-hover:bg-cyan-500/10 transition-all duration-500"></div>
+                      <div className="p-3 bg-cyan-500/10 rounded-2xl w-fit mb-4">
+                        <Database className="text-cyan-400" size={22} />
+                      </div>
+                      <h4 className="text-lg font-bold text-white mb-2">Web Scraping & Listing</h4>
+                      <p className="text-xs text-gray-400 leading-relaxed">
+                        Bypass Cloudflare blockades to extract clean, structured leads and listings directly to your databases.
+                      </p>
+                    </motion.div>
+
+                    {/* Card 2: AI Support Agent */}
+                    <motion.div 
+                      whileHover={{ y: -5, scale: 1.02 }}
+                      className="bg-[#0c0c0e]/80 border border-white/5 p-6 rounded-3xl relative overflow-hidden group hover:border-emerald-500/20 transition-all duration-300"
+                    >
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-3xl rounded-full group-hover:bg-emerald-500/10 transition-all duration-500"></div>
+                      <div className="p-3 bg-emerald-500/10 rounded-2xl w-fit mb-4">
+                        <MessageCircle className="text-emerald-400" size={22} />
+                      </div>
+                      <h4 className="text-lg font-bold text-white mb-2">AI Customer Support</h4>
+                      <p className="text-xs text-gray-400 leading-relaxed">
+                        Deploy semantic AI agents inside chat queues. Responds using custom business vector data to close leads in real-time.
+                      </p>
+                    </motion.div>
+
+                    {/* Card 3: Social Autopilot */}
+                    <motion.div 
+                      whileHover={{ y: -5, scale: 1.02 }}
+                      className="bg-[#0c0c0e]/80 border border-white/5 p-6 rounded-3xl relative overflow-hidden group hover:border-purple-500/20 transition-all duration-300"
+                    >
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-3xl rounded-full group-hover:bg-purple-500/10 transition-all duration-500"></div>
+                      <div className="p-3 bg-purple-500/10 rounded-2xl w-fit mb-4">
+                        <Share2 className="text-purple-400" size={22} />
+                      </div>
+                      <h4 className="text-lg font-bold text-white mb-2">Social Media Autopilot</h4>
+                      <p className="text-xs text-gray-400 leading-relaxed">
+                        Custom publishing pipelines that take sheet outlines, generate captions with AI, and auto-post to social media.
+                      </p>
+                    </motion.div>
+
+                    {/* Card 4: Meeting Scheduler */}
+                    <motion.div 
+                      whileHover={{ y: -5, scale: 1.02 }}
+                      className="bg-[#0c0c0e]/80 border border-white/5 p-6 rounded-3xl relative overflow-hidden group hover:border-indigo-500/20 transition-all duration-300"
+                    >
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 blur-3xl rounded-full group-hover:bg-indigo-500/10 transition-all duration-500"></div>
+                      <div className="p-3 bg-indigo-500/10 rounded-2xl w-fit mb-4">
+                        <Calendar className="text-indigo-400" size={22} />
+                      </div>
+                      <h4 className="text-lg font-bold text-white mb-2">Calendar & Workflows</h4>
+                      <p className="text-xs text-gray-400 leading-relaxed">
+                        Intelligent meeting schedulers. Books clients, syncs timezone offsets, blocks slots, and sends instant confirmations.
+                      </p>
+                    </motion.div>
+                  </div>
+                </div>
+
               </div>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-                Hello, I'm Marcel, your developer. I'm currently studying computer science at a state university, and I'm also in my 4th year now. I have developed several projects, including websites and applications, using cross-platform technology. Additionally, I possess native programming skills, having started my journey before the advent of AI. However, I now leverage AI to expedite my project production. Most recently, I built VA Job Finder, a high-performance aggregator that automates skill-based job matching across 8+ platforms using FastAPI and specialized scrapers. My tech stack includes Python, JS, Node.JS, HTML, CSS, React, React Native, PHP, PostgreSQL, MySQL, and C++. I have also developed advanced project workflows using n8n for AI Automation, including a zero-touch scheduling ecosystem. I'm hungry to learn more and eager to tackle complex technical challenges. Thanks; hopefully this is helpful information! expertise.
-              </p>
             </div>
           </motion.section>
 
@@ -179,14 +284,14 @@ export default function App() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="space-y-10"
+            className="min-h-[calc(100vh-160px)] flex flex-col justify-center space-y-10"
           >
             <div className="flex items-center gap-4">
               <h3 className="text-4xl font-bold text-white tracking-tight">Technical Arsenal</h3>
               <div className="h-px bg-gradient-to-r from-white/20 to-transparent flex-1"></div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Languages & Frameworks */}
               <motion.div whileHover={{ y: -5 }} className="glass-card p-8 rounded-3xl md:col-span-2">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-cyan-500/10 rounded-2xl">
@@ -195,49 +300,52 @@ export default function App() {
                   <h4 className="text-xl font-bold text-white">Languages & Frameworks</h4>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {['JavaScript', 'React Native', 'React', 'Python', 'HTML', 'CSS', 'FastAPI', 'BeautifulSoup4'].map(skill => (
+                  {['JavaScript', 'React Native', 'React', 'Python'].map(skill => (
                     <span key={skill} className="text-sm font-medium bg-white/5 px-4 py-2 rounded-xl text-gray-200 border border-white/10 shadow-sm">{skill}</span>
                   ))}
                 </div>
               </motion.div>
 
+              {/* Platforms */}
               <motion.div whileHover={{ y: -5 }} className="glass-card p-8 rounded-3xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-purple-500/10 rounded-2xl">
-                    <Database className="text-purple-400" size={24} />
+                    <Briefcase className="text-purple-400" size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-white">Databases</h4>
+                  <h4 className="text-xl font-bold text-white">Platforms</h4>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {['PostgreSQL', 'MySQL', 'Supabase', 'Neon'].map(skill => (
+                  {['Telegram', 'WhatsApp', 'Google Workspace', 'Slack', 'HubSpot', 'ClickUp', 'Typeform', 'Asana', 'Trello'].map(skill => (
                     <span key={skill} className="text-sm font-medium bg-white/5 px-4 py-2 rounded-xl text-gray-200 border border-white/10 shadow-sm">{skill}</span>
                   ))}
                 </div>
               </motion.div>
 
+              {/* AI Tools */}
               <motion.div whileHover={{ y: -5 }} className="glass-card p-8 rounded-3xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-emerald-500/10 rounded-2xl">
-                    <Wrench className="text-emerald-400" size={24} />
+                    <Cpu className="text-emerald-400" size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-white">Tools</h4>
+                  <h4 className="text-xl font-bold text-white">AI Tools</h4>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {['Git', 'GitHub', 'VS Code', 'Local LLMs', 'n8n', 'Cloudscraper', 'PyPDF2'].map(skill => (
+                  {['Claude', 'ChatGPT', 'Gemini', 'Llama'].map(skill => (
                     <span key={skill} className="text-sm font-medium bg-white/5 px-4 py-2 rounded-xl text-gray-200 border border-white/10 shadow-sm">{skill}</span>
                   ))}
                 </div>
               </motion.div>
 
+              {/* Automation Tools */}
               <motion.div whileHover={{ y: -5 }} className="glass-card p-8 rounded-3xl md:col-span-2">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-orange-500/10 rounded-2xl">
-                    <Briefcase className="text-orange-400" size={24} />
+                    <Zap className="text-orange-400" size={24} />
                   </div>
-                  <h4 className="text-xl font-bold text-white">Workflow & Practices</h4>
+                  <h4 className="text-xl font-bold text-white">Automation Tools</h4>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {['Agile Methodologies', 'DevOps Practices', 'AI-Assisted Development', 'AI Automation'].map(skill => (
+                  {['n8n', 'Make', 'Zapier'].map(skill => (
                     <span key={skill} className="text-sm font-medium bg-white/5 px-4 py-2 rounded-xl text-gray-200 border border-white/10 shadow-sm">{skill}</span>
                   ))}
                 </div>
@@ -245,17 +353,208 @@ export default function App() {
             </div>
           </motion.section>
 
-          {/* Projects */}
+          <motion.section
+            id="ai-projects"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="min-h-[calc(100vh-160px)] flex flex-col justify-center space-y-10"
+          >
+            <div className="flex items-center gap-4">
+              <h3 className="text-4xl font-bold text-white tracking-tight">AI Automation Workflows</h3>
+              <div className="h-px bg-gradient-to-r from-white/20 to-transparent flex-1"></div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-8">
+              <motion.div whileHover={{ scale: 1.01, y: -5 }} className="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-purple-500/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-purple-500/20 transition-colors duration-500"></div>
+
+                <div className="relative z-10 flex flex-col md:flex-row gap-10">
+                  <div className="space-y-6 flex-1">
+                    <div>
+                      <h4 className="text-4xl font-bold text-white">Telegram Bot Auto-Scheduler</h4>
+                    </div>
+
+                    <p className="text-lg text-gray-300 leading-relaxed">
+                      A fully autonomous scheduling and booking engine integrated with Google Workspace and Telegram for zero-touch event management.
+                    </p>
+
+                    <ul className="space-y-3 text-gray-400">
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Triggers dynamically via Telegram Bot to capture client booking requests and custom user inputs.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Queries and checks Google Sheets databases in real-time to verify slots and client information.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Automatically registers, blocks, and schedules meetings in Google Calendar.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Dispatches personalized confirmation emails containing meeting invites and details via Gmail.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Loops back to Telegram to instantly notify the user with a detailed booking success confirmation.</span>
+                      </li>
+                    </ul>
+
+                    <div className="flex flex-wrap gap-2 pt-4">
+                      {['n8n', 'Telegram Bot API', 'Google Sheets', 'Google Calendar', 'Gmail API', 'Workflow Automation'].map(tech => (
+                        <span key={tech} className="text-xs font-mono text-purple-300 bg-purple-500/10 px-3 py-1.5 rounded-lg border border-purple-500/20">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Project 1: Instagram Content Scraper Bot */}
+              <motion.div whileHover={{ scale: 1.01, y: -5 }} className="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-pink-500/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-pink-500/20 transition-colors duration-500"></div>
+
+                <div className="relative z-10 flex flex-col md:flex-row gap-10">
+                  <div className="space-y-6 flex-1">
+                    <div>
+                      <h4 className="text-4xl font-bold text-white">Instagram Content Scraper Bot</h4>
+                    </div>
+
+                    <p className="text-lg text-gray-300 leading-relaxed">
+                      An intelligent social media extraction system triggered directly from Telegram to parse Instagram posts, returning structured captions and hashtags within seconds.
+                    </p>
+
+                    <ul className="space-y-3 text-gray-400">
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Triggers instantly via a simple Telegram command (<code className="text-pink-300 bg-pink-500/10 px-1.5 py-0.5 rounded font-mono text-sm">/search &lt;query&gt;</code>) sent by the user.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Processes requests asynchronously through an optimized, automated n8n workflow engine.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Scrapes target Instagram profiles and hashtags to locate highly relevant media and caption content.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Extracts, isolates, and formats the post captions along with all embedded hashtags automatically.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Delivers the cleaned caption and organized hashtags directly back to the user in the Telegram chat interface.</span>
+                      </li>
+                    </ul>
+
+                    <div className="flex flex-wrap gap-2 pt-4">
+                      {['n8n', 'Telegram Bot API', 'Instagram Scraper', 'Data Extraction', 'Social Media Automation'].map(tech => (
+                        <span key={tech} className="text-xs font-mono text-pink-300 bg-pink-500/10 px-3 py-1.5 rounded-lg border border-pink-500/20">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Project 2: Typeform HubSpot Lead Sync Engine */}
+              <motion.div whileHover={{ scale: 1.01, y: -5 }} className="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-orange-500/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-orange-500/20 transition-colors duration-500"></div>
+
+                <div className="relative z-10 flex flex-col md:flex-row gap-10">
+                  <div className="space-y-6 flex-1">
+                    <div>
+                      <h4 className="text-4xl font-bold text-white">Typeform HubSpot Lead Sync Engine</h4>
+                    </div>
+
+                    <p className="text-lg text-gray-300 leading-relaxed">
+                      An automated lead management scenario built on Make (formerly Integromat) that dynamically captures form submissions, synchronizes contacts to HubSpot CRM, and dispatches personalized email campaigns.
+                    </p>
+
+                    <ul className="space-y-3 text-gray-400">
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Triggers instantly upon any form submission completed on Typeform, capturing all user inputs.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Executes smart upsert logic inside HubSpot CRM to create a new contact or update details if the lead already exists.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Dispatches automated welcome emails with dynamic marketing resources and introductory content immediately to the new lead.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Built on Make (Integromat) featuring enterprise-level data mapping and real-time failure handling safeguards.</span>
+                      </li>
+                    </ul>
+
+                    <div className="flex flex-wrap gap-2 pt-4">
+                      {['Make.com', 'Typeform API', 'HubSpot CRM', 'Lead Capture', 'Email Automation', 'Sales Operations'].map(tech => (
+                        <span key={tech} className="text-xs font-mono text-orange-300 bg-orange-500/10 px-3 py-1.5 rounded-lg border border-orange-500/20">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Project 3: Facebook Page AI Support Bot */}
+              <motion.div whileHover={{ scale: 1.01, y: -5 }} className="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-cyan-500/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-cyan-500/20 transition-colors duration-500"></div>
+
+                <div className="relative z-10 flex flex-col md:flex-row gap-10">
+                  <div className="space-y-6 flex-1">
+                    <div>
+                      <h4 className="text-4xl font-bold text-white">Facebook Page AI Support Bot</h4>
+                    </div>
+
+                    <p className="text-lg text-gray-300 leading-relaxed">
+                      An autonomous, AI-driven customer support assistant integrated directly with Facebook Business Pages to dynamically handle inquiries, pricing questions, and client support using custom knowledge base files.
+                    </p>
+
+                    <ul className="space-y-3 text-gray-400">
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Triggers dynamically upon receiving direct messages or client inquiries on the Facebook Business Page.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Queries a secure company knowledge base file in real-time, containing pricing schedules, FAQs, and business data.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Leverages advanced AI LLMs to draft accurate, natural, and highly contextualized answers tailored to customer queries.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span>Built on Zapier utilizing automated webhook structures, delivering 24/7 client response coverage with zero latency.</span>
+                      </li>
+                    </ul>
+
+                    <div className="flex flex-wrap gap-2 pt-4">
+                      {['Zapier', 'Facebook Pages API', 'AI Assistant', 'Knowledge Base', 'Support Automation'].map(tech => (
+                        <span key={tech} className="text-xs font-mono text-cyan-300 bg-cyan-500/10 px-3 py-1.5 rounded-lg border border-cyan-500/20">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.section>
+
+          {/* Web/App Projects */}
           <motion.section
             id="projects"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="space-y-10"
+            className="min-h-[calc(100vh-160px)] flex flex-col justify-center space-y-10"
           >
             <div className="flex items-center gap-4">
-              <h3 className="text-4xl font-bold text-white tracking-tight">Featured Projects</h3>
+              <h3 className="text-4xl font-bold text-white tracking-tight">Web/App Projects</h3>
               <div className="h-px bg-gradient-to-r from-white/20 to-transparent flex-1"></div>
             </div>
 
@@ -395,140 +694,104 @@ export default function App() {
                   </div>
                 </div>
               </motion.div>
-
-              {/* Project 3 */}
-              <motion.div whileHover={{ scale: 1.01, y: -5 }} className="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-purple-500/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-purple-500/20 transition-colors duration-500"></div>
-
-                <div className="relative z-10 flex flex-col md:flex-row gap-10">
-                  <div className="space-y-6 flex-1">
-                    <div>
-                      <span className="text-sm font-mono text-purple-400 tracking-wider uppercase mb-2 block">AI Specialist & Automation Architect</span>
-                      <h4 className="text-4xl font-bold text-white">AI Workflow Automation</h4>
-                    </div>
-
-                    <p className="text-lg text-gray-300 leading-relaxed">
-                      Advanced automation systems leveraging AI and low-code platforms to eliminate manual tasks and streamline business processes.
-                    </p>
-
-                    <ul className="space-y-3 text-gray-400">
-                      <li className="flex items-start gap-3">
-                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
-                        <span>Designed a scheduling ecosystem integrating Telegram, Google Sheets, Gmail, and Google Calendar.</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
-                        <span>Implemented zero-touch meeting scheduling triggered by simple natural language messages.</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
-                        <span>Developed multi-step logic flows in n8n for data synchronization and automated notifications.</span>
-                      </li>
-                    </ul>
-
-                    <div className="flex flex-wrap gap-2 pt-4">
-                      {['n8n', 'AI Integration', 'Automation', 'Telegram API', 'Google Workspace'].map(tech => (
-                        <span key={tech} className="text-xs font-mono text-purple-300 bg-purple-500/10 px-3 py-1.5 rounded-lg border border-purple-500/20">{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
             </div>
           </motion.section>
 
-          {/* Education */}
-          <motion.section
-            id="education"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="space-y-10"
-          >
-            <div className="flex items-center gap-4">
-              <h3 className="text-4xl font-bold text-white tracking-tight">Education</h3>
-              <div className="h-px bg-gradient-to-r from-white/20 to-transparent flex-1"></div>
-            </div>
-
-            <motion.div whileHover={{ y: -5 }} className="glass-card p-10 rounded-[2.5rem] relative overflow-hidden">
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="p-3 bg-white/5 rounded-2xl border border-white/10">
-                    <GraduationCap className="text-white" size={28} />
-                  </div>
-                  <div>
-                    <h4 className="text-2xl font-bold text-white">Bachelor of Science in Computer Science</h4>
-                    <p className="text-lg text-emerald-400 font-medium">President Ramon Magsaysay State University</p>
-                  </div>
-                </div>
-
-                <p className="text-gray-400 font-mono">Currently 4th Year</p>
-
-                <div className="pt-6 border-t border-white/10">
-                  <p className="text-sm text-gray-400 mb-4 uppercase tracking-wider font-mono">Relevant Coursework</p>
-                  <div className="flex flex-wrap gap-3">
-                    {['Web Development', 'App Development', 'Database Management', 'Software Engineering'].map(course => (
-                      <span key={course} className="text-sm font-medium bg-white/5 px-4 py-2 rounded-xl text-gray-200 border border-white/10">{course}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.section>
 
         </main>
 
-        {/* Footer */}
-        <footer className="border-t border-white/10 py-10 text-center text-sm text-gray-500 font-mono bg-[#030303]/80 backdrop-blur-lg">
-          <p>Designed & Built by Marcel</p>
-          <p className="mt-2">© {new Date().getFullYear()} All rights reserved.</p>
+        {/* Footer & Contact Section */}
+        <footer id="contact" className="relative border-t border-white/5 bg-[#060608] pt-24 pb-12 overflow-hidden">
+          {/* Neon Background Glows */}
+          <div className="absolute top-0 left-1/4 w-[30rem] h-[30rem] bg-emerald-500/5 blur-3xl rounded-full pointer-events-none"></div>
+          <div className="absolute bottom-0 right-1/4 w-[30rem] h-[30rem] bg-cyan-500/5 blur-3xl rounded-full pointer-events-none"></div>
+
+          <div className="max-w-6xl mx-auto px-6 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start mb-16">
+              {/* Left Column: Branding & Socials */}
+              <div className="lg:col-span-5 space-y-6">
+                <div className="space-y-3">
+                  <h3 className="text-3xl font-bold text-white tracking-tight">Let's Connect!</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
+                    Whether you have an automation project in mind, need a custom scraper built, or want to collaborate on web/app development, I'm always open to discussing new opportunities.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-xs font-mono text-gray-500 uppercase tracking-widest text-gray-600">Direct Channels</h4>
+                  <div className="flex flex-wrap gap-3">
+                    <a href="https://www.linkedin.com/in/john-marcel-aleman-47ab08402/" target="_blank" rel="noreferrer" className="flex items-center justify-center w-11 h-11 bg-white/5 border border-white/10 rounded-xl hover:bg-blue-500/10 hover:border-blue-500/30 transition-all text-gray-400 hover:text-blue-400 shadow-md group relative">
+                      <Linkedin size={20} />
+                    </a>
+                    <a href="https://facebook.com/marcel.sao.aleman" target="_blank" rel="noreferrer" className="flex items-center justify-center w-11 h-11 bg-white/5 border border-white/10 rounded-xl hover:bg-blue-600/10 hover:border-blue-600/30 transition-all text-gray-400 hover:text-blue-500 shadow-md group relative">
+                      <Facebook size={20} />
+                    </a>
+                    <a href="https://instagram.com/marcel.dev.hash" target="_blank" rel="noreferrer" className="flex items-center justify-center w-11 h-11 bg-white/5 border border-white/10 rounded-xl hover:bg-pink-500/10 hover:border-pink-500/30 transition-all text-gray-400 hover:text-pink-400 shadow-md group relative">
+                      <Instagram size={20} />
+                    </a>
+                    <a href="https://wa.me/639560043330" target="_blank" rel="noreferrer" className="flex items-center justify-center w-11 h-11 bg-white/5 border border-white/10 rounded-xl hover:bg-green-500/10 hover:border-green-500/30 transition-all text-gray-400 hover:text-green-400 shadow-md group relative">
+                      <Phone size={20} />
+                    </a>
+                    <a href="https://github.com/Marcel-Dev-hash" target="_blank" rel="noreferrer" className="flex items-center justify-center w-11 h-11 bg-white/5 border border-white/10 rounded-xl hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all text-gray-400 hover:text-emerald-400 shadow-md group relative">
+                      <Github size={20} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Contact Form */}
+              <div className="lg:col-span-7">
+                <div className="glass-card p-8 md:p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden bg-[#0c0c0e]/50 backdrop-blur-xl">
+                  <h4 className="text-xl font-bold text-white mb-6">Send a Message</h4>
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="space-y-2">
+                      <label className="text-xs font-mono text-gray-400 uppercase tracking-wider block">Your Email</label>
+                      <div className="relative">
+                        <input 
+                          type="email" 
+                          name="email"
+                          required
+                          placeholder="client@example.com"
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-3.5 px-4 pl-12 focus:border-emerald-500/50 outline-none text-white text-sm transition-all placeholder:text-gray-600 focus:bg-white/[0.08]"
+                        />
+                        <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-mono text-gray-400 uppercase tracking-wider block">Your Message</label>
+                      <div className="relative">
+                        <textarea 
+                          name="message"
+                          required
+                          placeholder="Describe your project, automation details, or business needs..."
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-3.5 px-4 pl-12 h-32 focus:border-emerald-500/50 outline-none text-white text-sm transition-all placeholder:text-gray-600 focus:bg-white/[0.08] resize-none"
+                        />
+                        <Send size={16} className="absolute left-4 top-4 text-gray-500" />
+                      </div>
+                    </div>
+
+                    <button 
+                      type="submit" 
+                      className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-semibold py-3.5 px-6 rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.15)] hover:shadow-[0_0_35px_rgba(16,185,129,0.35)] transition-all flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer text-sm"
+                    >
+                      <Send size={16} />
+                      Send Message
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            {/* Copyright Area */}
+            <div className="border-t border-white/5 pt-8 text-center text-xs text-gray-500 font-mono">
+              <p>© {new Date().getFullYear()} Marcel Dev. All rights reserved.</p>
+            </div>
+          </div>
         </footer>
       </div>
 
-      {/* Floating Contact Widget */}
-      <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4">
-        <AnimatePresence>
-          {isContactOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.8 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col gap-3"
-            >
-              <a href="mailto:johnmarcelaleman88@gmail.com" className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-emerald-500/20 hover:border-emerald-500/50 transition-all text-white shadow-lg group relative">
-                <span className="absolute right-14 bg-[#030303] border border-white/10 px-3 py-1.5 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Email Me</span>
-                <Mail size={20} />
-              </a>
-              <a href="https://www.linkedin.com/in/john-marcel-aleman-47ab08402/" target="_blank" rel="noreferrer" className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-blue-500/20 hover:border-blue-500/50 transition-all text-white shadow-lg group relative">
-                <span className="absolute right-14 bg-[#030303] border border-white/10 px-3 py-1.5 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">LinkedIn</span>
-                <Linkedin size={20} />
-              </a>
-              <a href="https://facebook.com/marcel.sao.aleman" target="_blank" rel="noreferrer" className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-blue-600/20 hover:border-blue-600/50 transition-all text-white shadow-lg group relative">
-                <span className="absolute right-14 bg-[#030303] border border-white/10 px-3 py-1.5 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Facebook</span>
-                <Facebook size={20} />
-              </a>
-              <a href="https://instagram.com/marcel.dev.hash" target="_blank" rel="noreferrer" className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-pink-500/20 hover:border-pink-500/50 transition-all text-white shadow-lg group relative">
-                <span className="absolute right-14 bg-[#030303] border border-white/10 px-3 py-1.5 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Instagram</span>
-                <Instagram size={20} />
-              </a>
-              <a href="https://wa.me/639560043330" target="_blank" rel="noreferrer" className="flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full hover:bg-green-500/20 hover:border-green-500/50 transition-all text-white shadow-lg group relative">
-                <span className="absolute right-14 bg-[#030303] border border-white/10 px-3 py-1.5 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">WhatsApp</span>
-                <Phone size={20} />
-              </a>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <div className="relative group">
-          <button
-            onClick={() => setIsContactOpen(!isContactOpen)}
-            className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] transition-all transform hover:scale-105 active:scale-95 relative z-10"
-          >
-            {isContactOpen ? <X size={24} /> : <MessageCircle size={24} />}
-          </button>
-        </div>
-      </div>
+
     </div>
   );
 }
