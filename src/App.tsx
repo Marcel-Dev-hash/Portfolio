@@ -367,6 +367,52 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-1 gap-8">
+              {/* Project: Gmail Analyzer and Scheduling System */}
+              <motion.div whileHover={{ scale: 1.01, y: -5 }} className="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-emerald-500/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
+
+                <div className="relative z-10 flex flex-col md:flex-row gap-10">
+                  <div className="space-y-6 flex-1">
+                    <div>
+                      <h4 className="text-4xl font-bold text-white">Gmail Analyzer & Scheduling System</h4>
+                    </div>
+
+                    <p className="text-lg text-gray-300 leading-relaxed">
+                      A multi-inbox AI monitoring assistant that automatically classifies job inquiries, logs applications to Google Sheets, alerts via Telegram, and schedules interviews in Google Calendar.
+                    </p>
+
+                    <ul className="space-y-3 text-gray-400">
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span><strong>Multi-Inbox Tracking:</strong> AI Agent continuously monitors incoming emails across 3 separate Gmail accounts in real-time.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span><strong>Intelligent Classification:</strong> Filters and categorizes job-related emails into Job Offers or Interviews, evaluating high/mid/low potential and urgency.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span><strong>Automated Logging:</strong> Saves standard job offers directly into Google Sheets to keep an organized record of job applications.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span><strong>Telegram Notifications:</strong> Sends instant alerts to a Telegram bot with the email analysis summary (potential, urgency, and sender info).</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="p-1 bg-white/10 rounded-full mt-1"><ChevronRight size={12} className="text-white" /></div>
+                        <span><strong>Smart Scheduling:</strong> For interview invitations, the AI agent parses email contents and automatically schedules calendar invites on Google Calendar.</span>
+                      </li>
+                    </ul>
+
+                    <div className="flex flex-wrap gap-2 pt-4">
+                      {['n8n', 'Google Workspace API', 'AI Agent (LLM)', 'Google Sheets', 'Google Calendar', 'Telegram Bot API', 'Workflow Automation'].map(tech => (
+                        <span key={tech} className="text-xs font-mono text-emerald-300 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/20">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
               <motion.div whileHover={{ scale: 1.01, y: -5 }} className="glass-card p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-purple-500/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-purple-500/20 transition-colors duration-500"></div>
 
